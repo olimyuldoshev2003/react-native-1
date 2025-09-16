@@ -1,60 +1,64 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useDeviceOrientation } from "@react-native-community/hooks";
+import React from "react";
+import { SafeAreaView, StatusBar, StyleSheet, Text } from "react-native";
 
-const Home: any = () => {
+const Home = () => {
+  const orientation = useDeviceOrientation();
+
   return (
-    <View style={styles.mainBlock}>
-      <Text style={styles.text}>Android</Text>
+    <SafeAreaView style={styles.container}>
+      <StatusBar hidden />
 
-      {/* Image component */}
-      <Image
-        // For making the image blur
-        blurRadius={2}
+      {/* Data about with and height of device */}
+      {/* <Button title="Show" onPress={() => {
+       alert(JSON.stringify(Dimensions.get("screen"))) 
+      }}/> */}
 
-        // Transision duration
-        fadeDuration={6000}
+      {/* Orientation (portrait or landscape) styling functionality */}
+      {/* <View
+        style={{
+          width: `100%`,
+          height: orientation === "portrait" ? `30%` : `100%`,
+          backgroundColor: `black`,
+        }}
+      ></View> */}
 
-        // Works in internal images
-        source={require("../../assets/images/favicon.png")}
+      {/* FlexBox */}
 
-        // Works in external images
-        // source={{
-        //   uri: `https://images.unsplash.com/photo-1526779259212-939e64788e3c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D`,
-        // }}
-        style={styles.img}
-      />
-    </View>
+      {/* Position */}
+
+      {/* Fonts */}
+      <Text style={styles.text}>Hello World!</Text>
+
+      {/* Icons from the component <Ionicons /> , which is from expo */}
+      <Ionicons name="add-circle-sharp" size={32} color="green" />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainBlock: {
-    display: "flex",
-    justifyContent: `center`,
+  container: {
+    display: `flex`,
+    justifyContent: "center",
     alignItems: `center`,
-    height: 1000,
-  },
-  text: {
-    color: `white`,
-    backgroundColor: `green`,
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 30,
-    borderRadius: 20,
+    height: `100%`,
   },
 
-  // Img
-  img: {
-    width: 100,
-    height: 50,
-    borderRadius: 10 / 2,
-    marginTop: 20,
-    // Resize mode
-    // resizeMode: "cover",
-    // resizeMode: "contain",
-    // resizeMode: "stretch",
-    // resizeMode: "repeat",
-    borderWidth: 1,
-    borderColor: `green`,
+  text: {
+    fontSize: 35,
+    // fontWeight: `bold`,
+
+    // Android
+    fontFamily: `Avenir`,
+
+    // IOS
+    // fontFamily: `Roboto`,
+
+    // text-decoration In React native
+    // textDecorationLine: `underline line-through`,
+    // textDecorationLine: `underline`,
+    // textDecorationLine: `line-through`,
   },
 });
 
