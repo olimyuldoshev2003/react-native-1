@@ -31,8 +31,8 @@ const Home = () => {
       {/* Fonts */}
       <Text style={styles.text}>Hello World!</Text>
 
-      {/* Icons from the component <Ionicons /> , which is from expo */}
-      <Ionicons name="add-circle-sharp" size={32} color="green" />
+      {/* Icons from the component <Ionicons /> , which is from expo*/}
+      <Ionicons name="checkmark-circle" size={32} color="green" />
     </SafeAreaView>
   );
 };
