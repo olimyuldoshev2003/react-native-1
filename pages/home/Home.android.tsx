@@ -3,15 +3,19 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Text } from "react-native";
 
 // Image Picker
-import * as ImagePicker from "expo-image-picker";
 import useLocation from "@/hooks/useLocation";
+import * as ImagePicker from "expo-image-picker";
+
+// NetInfo
+import { useNetInfo } from "@react-native-community/netinfo";
 
 // Permissions
 // import * as Permissions from "expo-permissions";
 
 const Home = () => {
   const orientation = useDeviceOrientation();
-  const location = useLocation()
+  const location = useLocation();
+  const netInfo = useNetInfo();
 
   const [imgFromGallery, setImgFromGallery] = useState<any>("");
 
@@ -39,12 +43,19 @@ const Home = () => {
     }
   }
 
-  
+  // NetInfo.fetch().then((state) => {
+  //   console.log(state);
+  // });
+
+  // It's for Class component
+  // const unsubscribe = NetInfo.addEventListener((state) => {
+  //   console.log(state);
+  // });
+
   useEffect(() => {
     requestPermission();
+    // unsubscribe();
   }, []);
-
-  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,9 +93,18 @@ const Home = () => {
       /> */}
 
       {/* Location */}
-      <Text>{JSON.stringify(location)}</Text>
+      {/* <Text>{JSON.stringify(location)}</Text> */}
 
-      {/*  */}
+      {/* NetInfo */}
+      {/* <Text>Hello</Text> */}
+      {/* {netInfo.type !== "unknown" && netInfo.isInternetReachable ? (
+        <Text>Connected</Text>
+      ) : (
+        <Text>Disconnected</Text>
+      )} */}
+
+      <Text>Hello</Text>
+      
     </SafeAreaView>
   );
 };

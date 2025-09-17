@@ -1,7 +1,9 @@
 // import Home from "@/pages/home/Home";
 
 // react navigation
+import DrawerNavigator from "@/navigators/DrawerNavigator";
 import StackNavigator from "@/navigators/StackNavigator";
+import TabNavigator from "@/navigators/TabNavigator";
 import {
   NavigationContainer,
   NavigationIndependentTree,
@@ -11,14 +13,16 @@ import { View } from "react-native";
 const App = () => {
   return (
     // <View>
-    //   //   <Home />
+    //   <Home />
     // </View>
     
-    <NavigationIndependentTree>
-      <NavigationContainer>
-        <StackNavigator />
+     <NavigationIndependentTree>
+       <NavigationContainer>
+         {/* <StackNavigator />  */}
+         <TabNavigator/>
+         {/* <DrawerNavigator/> */}
       </NavigationContainer>
-    </NavigationIndependentTree>
+    </NavigationIndependentTree> 
   );
 };
 
