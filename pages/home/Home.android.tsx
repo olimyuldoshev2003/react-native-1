@@ -1,10 +1,50 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDeviceOrientation } from "@react-native-community/hooks";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Text } from "react-native";
+
+// Image Picker
+import * as ImagePicker from "expo-image-picker";
+import useLocation from "@/hooks/useLocation";
+
+// Permissions
+// import * as Permissions from "expo-permissions";
 
 const Home = () => {
   const orientation = useDeviceOrientation();
+  const location = useLocation()
+
+  const [imgFromGallery, setImgFromGallery] = useState<any>("");
+
+  async function requestPermission() {
+    // const permission = await Permissions.askAsync(
+    //   Permissions.MEDIA_LIBRARY,
+    //   Permissions.LOCATION_FOREGROUND
+    // );
+
+    const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!result.granted) {
+      alert("You need to enable permission to access the library");
+    }
+  }
+
+  async function selectImage() {
+    try {
+      const result: any = await ImagePicker.launchImageLibraryAsync();
+
+      if (!result.cancelled) {
+        setImgFromGallery(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,10 +69,22 @@ const Home = () => {
       {/* Position */}
 
       {/* Fonts */}
-      <Text style={styles.text}>Hello World!</Text>
+      {/* <Text style={styles.text}>Hello World!</Text> */}
 
       {/* Icons from the component <Ionicons /> , which is from expo*/}
-      <Ionicons name="checkmark-circle" size={32} color="green" />
+      {/* <Ionicons name="checkmark-circle" size={32} color="green" /> */}
+
+      {/* Expo Image Picker */}
+      {/* <Button title="Select Image" onPress={selectImage} />
+      <Image
+        source={{ uri: imgFromGallery }}
+        style={{ width: 300, height: 300, marginTop: 20 }}
+      /> */}
+
+      {/* Location */}
+      <Text>{JSON.stringify(location)}</Text>
+
+      {/*  */}
     </SafeAreaView>
   );
 };
