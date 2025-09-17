@@ -1,18 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Image } from "react-native-expo-image-cache";
+
+// AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Products = () => {
   const [products, setProducts] = useState<any>([]);
   const [connection, setConnection] = useState<boolean>(true);
 
   const renderItem = ({ item }: { item: any }) => {
+
     return (
       <View>
-        <Image
+        {/* <Image
           source={{ uri: item.thumbnail }}
           style={{ width: `100%`, height: 200 }}
-        />
+        /> */}
+
+        {/* react-native-expo-image-cache */}
+        <Image uri={item.thumbnail} style={{ width: `100%`, height: 200 }} />
         <View
           style={{
             flex: 1,
@@ -31,8 +39,16 @@ const Products = () => {
 
   async function getProducts() {
     try {
-      const { data } = await axios.get(`https://dummyjson.com/products`);
-      setProducts(data.products);
+      if (connection) {
+        const { data } = await axios.get(`https://dummyjson.com/products`);
+        setProducts(data.products);
+        await AsyncStorage.setItem("products", JSON.stringify(data.products));
+      } else {
+        const cacheProducts = await AsyncStorage.getItem("products");
+        if (cacheProducts) {
+          setProducts(JSON.parse(cacheProducts));
+        }
+      }
     } catch (error) {
       console.error(error);
     }
